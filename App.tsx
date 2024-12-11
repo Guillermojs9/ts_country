@@ -1,23 +1,57 @@
-import React from 'react';
-import {SafeAreaView, StatusBar, StyleSheet, View, Text} from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { SafeAreaView, StatusBar, StyleSheet, View, Text } from 'react-native';
 
-function App(): React.JSX.Element {
+type Country = {
+  region: string;
+};
+
+const App = (): React.JSX.Element => {
+  const [regions, setRegions] = useState<string[]>([]);
+  useEffect(() => {
+    async function getRegions() {
+      const response = await fetch('https://restcountries.com/v3.1/all?fields=region');
+      if (!response.ok) {
+        throw new Error('Error fetching regions');
+      }
+      const jsonData: Country[] = await response.json();
+      const regionsResponse = [...new Set(jsonData.map((country) => country.region))];
+      setRegions(regionsResponse);
+
+    }
+
+    getRegions();
+  }, []);
+
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="dark-content" />
       <View>
-        <Text>¡Hola, mundo!</Text>
+        {regions.length > 0 ? (
+          regions.map((region, index) => (
+            <Text key={index} style={styles.regionText}>
+              {region}
+            </Text>
+          ))
+        ) : (
+          <Text>Cargando regiones...</Text>
+        )}
       </View>
     </SafeAreaView>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+    padding: 20,
+  },
+  regionText: {
+    fontSize: 18,
+    marginBottom: 10,
   },
 });
 
 export default App;
+
 
