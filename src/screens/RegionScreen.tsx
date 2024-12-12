@@ -1,10 +1,8 @@
-import React, { useEffect, useState } from 'react';
 import { SafeAreaView, StatusBar, StyleSheet, FlatList, Text, Pressable } from 'react-native';
-import { Country } from '../entities/Country';
-import { DataCountry } from '../entities/dataResponse';
-import { countryMapper } from '../mapper/CountryMapper';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../types/RootStackParamList';
+import { useRegions } from '../hooks/useRegions';
+import { fetchCountries } from '../conexion/FetchCountries';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Region'>;
 
@@ -12,33 +10,12 @@ const urlRegion: string = 'https://restcountries.com/v3.1/all?fields=region';
 const urlPaisesRegion: string = 'https://restcountries.com/v3.1/region/';
 
 export function RegionScreen({ navigation }: Props): React.JSX.Element {
-    const [regions, setRegions] = useState<string[]>([]);
-    const [countries, setCountries] = useState<Country[]>([]);
+    const { regions } = useRegions(urlRegion);
 
-    async function getRegions() {
-        const response = await fetch(urlRegion);
-        if (!response.ok) {
-            throw new Error('Error fetching regions');
-        }
-        const jsonData: DataCountry[] = await response.json();
-        const regionsResponse = [...new Set(jsonData.map((country) => country.region))];
-        setRegions(regionsResponse);
+    async function onPressFunction(region: string) {
+        const countries = await fetchCountries(urlPaisesRegion, region);
+        navigation.navigate('Countries', { countries });
     }
-
-    async function getCountries(region: string) {
-        const response = await fetch(`${urlPaisesRegion}${region}`);
-        if (!response.ok) {
-            throw new Error('Error fetching countries');
-        }
-        const jsonData: DataCountry[] = await response.json();
-        const countriesMapped = jsonData.map((item) => countryMapper(item));
-        setCountries(countriesMapped);
-        navigation.navigate('Countries', { countries: countriesMapped });
-    }
-
-    useEffect(() => {
-        getRegions();
-    }, []);
 
     return (
         <SafeAreaView style={styles.container}>
@@ -48,7 +25,7 @@ export function RegionScreen({ navigation }: Props): React.JSX.Element {
                     data={regions}
                     keyExtractor={(item, index) => index.toString()}
                     renderItem={({ item }) => (
-                        <Pressable onPress={() => getCountries(item)}>
+                        <Pressable onPress={() => onPressFunction(item)}>
                             <Text style={styles.regionText}>{item}</Text>
                         </Pressable>
                     )}
