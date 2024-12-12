@@ -1,7 +1,7 @@
 import { SafeAreaView, StatusBar, StyleSheet, Text } from "react-native";
-import { Country } from "./Country";
+import { Country } from "../entities/Country";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { RootStackParamList } from "./App";
+import { RootStackParamList } from "../types/RootStackParamList";
 
 type Props = NativeStackScreenProps<RootStackParamList, 'CountryInfo'>;
 

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { SafeAreaView, StatusBar, StyleSheet, FlatList, Text, Pressable } from 'react-native';
-import { Country } from './Country';
-import { DataCountry } from './dataResponse';
-import { countryMapper } from './CountryMapper';
+import { Country } from '../entities/Country';
+import { DataCountry } from '../entities/dataResponse';
+import { countryMapper } from '../mapper/CountryMapper';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { RootStackParamList } from './App';
+import { RootStackParamList } from '../types/RootStackParamList';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Region'>;
 

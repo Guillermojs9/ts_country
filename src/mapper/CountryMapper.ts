@@ -1,5 +1,5 @@
-import { Country } from "./Country";
-import { DataCountry } from "./dataResponse";
+import { Country } from "../entities/Country";
+import { DataCountry } from "../entities/dataResponse";
 
 export const countryMapper = (item: DataCountry): Country => {
     return {

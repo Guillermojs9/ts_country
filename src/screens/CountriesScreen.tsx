@@ -1,7 +1,7 @@
 import React from 'react';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { RootStackParamList } from './App';
-import { CountriesFlatList } from './CountriesFlatList';
+import { CountriesFlatList } from '../components/CountriesFlatList';
+import { RootStackParamList } from '../types/RootStackParamList';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Countries'>;
 

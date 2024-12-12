@@ -1,7 +1,7 @@
 import { FlatList, Pressable, SafeAreaView, StatusBar, StyleSheet, Text } from 'react-native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { RootStackParamList } from './App';
-import { Country } from './Country';
+import { Country } from '../entities/Country';
+import { RootStackParamList } from '../types/RootStackParamList';
 
 type Props = {
   navigation: NativeStackNavigationProp<RootStackParamList, 'Countries'>;

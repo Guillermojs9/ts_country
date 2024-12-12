@@ -1,14 +1,9 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { RegionScreen } from './RegionScreen';
-import { CountriesScreen } from './CountriesScreen';
-import { Country } from './Country';
-import { CountryInfoScreen } from './CountryInfoScreen';
-export type RootStackParamList = {
-  Region: undefined;
-  Countries: { countries: Country[] };
-  CountryInfo: { country: Country };
-};
+import { RegionScreen } from './src/screens/RegionScreen';
+import { CountriesScreen } from './src/screens/CountriesScreen';
+import { CountryInfoScreen } from './src/screens/CountryInfoScreen';
+import { RootStackParamList } from './src/types/RootStackParamList';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
