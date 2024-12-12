@@ -30,7 +30,7 @@ export function Card({ country }: CardProps) {
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
-        backgroundColor: '#fff',
+        backgroundColor: '#E6E6E6',
         borderRadius: 10,
         overflow: 'hidden',
         shadowColor: '#000',
