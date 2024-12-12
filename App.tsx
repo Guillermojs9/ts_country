@@ -2,10 +2,11 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { RegionScreen } from './RegionScreen';
 import { CountriesScreen } from './CountriesScreen';
+import { Country } from './Country';
 
 export type RootStackParamList = {
   Region: undefined;
-  Countries: undefined;
+  Countries: { countries: Country[] };
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -26,7 +27,7 @@ const App = (): React.JSX.Element => {
         />
       </Stack.Navigator>
     </NavigationContainer>
-  )
+  );
 };
 
 export default App;

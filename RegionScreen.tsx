@@ -7,6 +7,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from './App';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Region'>;
+
 const urlRegion: string = 'https://restcountries.com/v3.1/all?fields=region';
 const urlPaisesRegion: string = 'https://restcountries.com/v3.1/region/';
 
@@ -32,28 +33,22 @@ export function RegionScreen({ navigation }: Props): React.JSX.Element {
         const jsonData: DataCountry[] = await response.json();
         const countriesMapped = jsonData.map((item) => countryMapper(item));
         setCountries(countriesMapped);
-        console.log('Paises en la región ' + region + ':');
-        countries.forEach((country) => {
-            console.log(country.name);
-        });
+        navigation.navigate('Countries', { countries: countriesMapped });
     }
 
     useEffect(() => {
         getRegions();
     }, []);
 
-    const onPressFunction = (region: string) => {
-        navigation.navigate('Countries'); 
-    };
     return (
         <SafeAreaView style={styles.container}>
             <StatusBar barStyle="dark-content" />
             {regions.length > 0 ? (
                 <FlatList
                     data={regions}
-                    keyExtractor={(index) => index.toString()}
+                    keyExtractor={(item, index) => index.toString()}
                     renderItem={({ item }) => (
-                        <Pressable onPress={() => onPressFunction(item)}>
+                        <Pressable onPress={() => getCountries(item)}>
                             <Text style={styles.regionText}>{item}</Text>
                         </Pressable>
                     )}
@@ -63,7 +58,7 @@ export function RegionScreen({ navigation }: Props): React.JSX.Element {
             )}
         </SafeAreaView>
     );
-};
+}
 
 const styles = StyleSheet.create({
     container: {

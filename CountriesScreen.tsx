@@ -1,23 +1,30 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, FlatList } from 'react-native';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { RootStackParamList } from './App';
 
-export function CountriesScreen(): React.JSX.Element {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.text}>Countries</Text>
-    </View>
-  );
+type Props = NativeStackScreenProps<RootStackParamList, 'Countries'>;
+
+export function CountriesScreen({ route }: Props): React.JSX.Element {
+    const { countries } = route.params;
+    return (
+        <View style={styles.container}>
+            <FlatList
+                data={countries}
+                keyExtractor={(item, index) => index.toString()}
+                renderItem={({ item }) => <Text style={styles.countryName}>{item.name}</Text>}
+            />
+        </View>
+    );
 }
-
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#fff',
-  },
-  text: {
-    fontSize: 18,
-    color: 'black',
-  },
+    container: {
+        flex: 1,
+        backgroundColor: '#fff',
+        padding: 20,
+    },
+    countryName: {
+        fontSize: 18,
+        marginBottom: 10,
+    },
 });
