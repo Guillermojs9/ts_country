@@ -2,6 +2,7 @@ import { FlatList, Pressable, SafeAreaView, StatusBar, StyleSheet, Text } from '
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Country } from '../entities/Country';
 import { RootStackParamList } from '../types/RootStackParamList';
+import { Card } from './CountryCard';
 
 type Props = {
   navigation: NativeStackNavigationProp<RootStackParamList, 'Countries'>;
@@ -22,7 +23,7 @@ export function CountriesFlatList({ navigation, countries }: Props): React.JSX.E
           keyExtractor={(item, index) => index.toString()}
           renderItem={({ item }) => (
             <Pressable onPress={() => onPressFunction(item)}>
-              <Text style={styles.regionText}>{item.name}</Text>
+              <Card country={item}></Card>
             </Pressable>
           )}
         />
