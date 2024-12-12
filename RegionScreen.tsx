@@ -3,11 +3,14 @@ import { SafeAreaView, StatusBar, StyleSheet, FlatList, Text, Pressable } from '
 import { Country } from './Country';
 import { DataCountry } from './dataResponse';
 import { countryMapper } from './CountryMapper';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { RootStackParamList } from './App';
 
+type Props = NativeStackScreenProps<RootStackParamList, 'Region'>;
 const urlRegion: string = 'https://restcountries.com/v3.1/all?fields=region';
 const urlPaisesRegion: string = 'https://restcountries.com/v3.1/region/';
 
-export function RegionScreen() {
+export function RegionScreen({ navigation }: Props): React.JSX.Element {
     const [regions, setRegions] = useState<string[]>([]);
     const [countries, setCountries] = useState<Country[]>([]);
 
@@ -40,9 +43,7 @@ export function RegionScreen() {
     }, []);
 
     const onPressFunction = (region: string) => {
-        console.log('Región seleccionada:', region);
-        getCountries(region);
-
+        navigation.navigate('Countries'); 
     };
     return (
         <SafeAreaView style={styles.container}>
