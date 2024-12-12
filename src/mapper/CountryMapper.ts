@@ -8,5 +8,6 @@ export const countryMapper = (item: DataCountry): Country => {
         language: item.languages ? Object.values(item.languages) : [],
         flag: item.flags.png,
         region: item.region,
+        map: item.maps.openStreetMaps,
     };
 };

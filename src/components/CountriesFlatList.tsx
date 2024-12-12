@@ -3,6 +3,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Country } from '../entities/Country';
 import { RootStackParamList } from '../types/RootStackParamList';
 import { Card } from './CountryCard';
+import { styles } from '../styles/Styles';
 
 type Props = {
   navigation: NativeStackNavigationProp<RootStackParamList, 'Countries'>;
@@ -33,15 +34,3 @@ export function CountriesFlatList({ navigation, countries }: Props): React.JSX.E
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    padding: 20,
-  },
-  regionText: {
-    fontSize: 18,
-    marginBottom: 10,
-  },
-});
